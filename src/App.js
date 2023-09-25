@@ -1,33 +1,58 @@
 
-import { useRef, useState } from 'react';
+import { useReducer, useRef} from 'react';
 import './App.css';
 import Header from './components/Header';
 import TodoEditor from './components/TodoEditor';
 import TodoList from './components/TodoList';
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE":
+      return [action.newItem, ...state];
+    case "UPDATED": {
+      return state.map((item) =>
+        item.id === action.targetId
+          ? { ...item, isChecked: !item.isChecked }
+          : item
+      );
+    }
+    case 'DELETE': {
+      return state.filter((item) => item.id !== action.targetId)
+    }
+  }
+  return state
+}
+
 function App() {
-  const [todo, setTodo] = useState([]);
+  const [todo, dispatch] = useReducer(reducer, [])
   const idRef = useRef(0)
+
   //생성
   const onCreate = (content) => {
-    const newItem = {
-      id: idRef.current,
-      content,
-      isChecked: false,
-      createdDate:new Date().getTime()
-    };
-    setTodo([newItem, ...todo]);
+    dispatch({
+      type: 'CREATE',
+      newItem: {
+        id: idRef.current,
+        content,
+        isChecked: false,
+        createdDate: new Date().getTime()
+      }
+    })
     idRef.current += 1
   }
   //업데이트
   const onUpdate = (targetId) => {
-    setTodo(todo.map((item) => (
-      item.id === targetId ? {...item, isChecked: !item.isChecked} : item
-    )))
+    dispatch({
+      type: 'UPDATED',
+      targetId
+    })
   }
   //삭제하기
   const onDelete = (targetId) => {
-    setTodo(todo.filter((item) => item.id !== targetId))
+    dispatch({
+      type: 'DELETE',
+      targetId
+    })
   }
 
   return (
