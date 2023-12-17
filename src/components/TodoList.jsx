@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import TodoInput from './TodoInput';
 
 const TodoList = ({filter}) => {
   const [todos, setTodos] = useState([]);
+  
   //투두 아이템 추가
   const handleAdd = (todo) => {
     const id = Date.now();
@@ -13,14 +14,10 @@ const TodoList = ({filter}) => {
   };
   //투두 아이템 삭제
   const handleDelete = (deleted) => {
-        console.log("deleted");
-        console.log(deleted);
     setTodos(todos.filter((item) => item.id !== deleted));
   };
   //투두 아이템 업데이트
   const handleUpdate = (updated) => {
-    console.log('updated')
-    console.log(updated)
     setTodos(todos.map(item => {
       if (item.id === updated) {
         item.status !== "active"
@@ -32,6 +29,20 @@ const TodoList = ({filter}) => {
   }
   //filter된 데이터
   const filteredList = getFilterData(filter, todos)
+
+  const saveStorage = (todos) => {
+    todos.map(item => {
+      localStorage.setItem('id', item.id)
+      localStorage.setItem('value', item.value)
+      localStorage.setItem('status', item.status)
+    })
+
+  }
+
+  //페이지 첫 렌더링시 storage에 저장된 데이터를 가져온다.
+  useEffect(() => {
+    saveStorage(todos);
+  }, [todos])
   return (
     <>
       <ul className="todoList">
