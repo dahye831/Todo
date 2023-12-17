@@ -10,7 +10,7 @@ const TodoInput = ({ onAdd }) => {
     setValue('')
   };
   return (
-    <div>
+    <div className='todoInput'>
       <input
         type="text"
         className="todoInput__input"

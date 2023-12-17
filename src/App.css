@@ -3,86 +3,92 @@ body, div, p, h1, h2, h3 {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 main {
   max-width: 640px;
   margin: 0 auto;
 }
 
-h2 {
-  font-size: 20px;
-}
-
-header {  
+.header {
   display: flex;
   align-items: center;
-  padding: 50px 0;
+  justify-content: space-between;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  background-color: beige;
 }
 
-header strong {
-  display: block;
+.header__button-mode {
+  flex-shrink: 0
 }
 
-h2.header__title {
-  font-size: 28px;
-  line-height: 37px;
+.filterList {
+  display: inline-flex;
+  gap: 0 5px;
 }
 
-section {
-  padding: 30px 20px;
-  background-color: #f6f2f2;
-  border-radius : 10px;
+.filterItem {
+  padding: 5px 0;
 }
 
-section + section {
-  margin-top: 30px;
+.filterItem--on {
+  border-bottom: 2px solid black;
 }
 
-.todoEditor__box {
+.filterItem__button {
+  border: 0;
+  background-color: transparent;
+  font-size: 18px;
+}
+
+.todoList {
+  min-height: 500px;
+  padding: 0 10px;
+}
+
+.todoInput {
   display: flex;
-  gap: 10px;
-  height: 30px;
-  align-items: center;
-  margin-top: 10px;
+  gap: 0 10px;
+  width: 100%;
+  height: 70px;
+  padding: 20px 10px;
+  background-color: beige;
+  box-sizing: border-box;
 }
 
-.todoEditor__input {
+.todoInput__input {
   flex: 1;
   height: 100%;
+  border: 0;
+  border-bottom: 2px solid black;
+  box-sizing: border-box;
 }
 
-.todoEditor__button {
-display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.todoInput__button {
   flex-shrink: 0;
   height: 100%;
   padding: 0 20px;
-  background-color: black;
-  border-radius: 5px;
-  color: #fff
-}
-
-.todoList__search {
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  border: 0;
-  border-bottom: 1px dashed #cbcbcb;
-  background-color: transparent;
 }
 
 .todoItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0; 
+  width: 100%;
 }
 
 .todoItem + .todoItem {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .todoItem__box {
-  display: flex;
-  align-items: center;
+  flex: 1;
+}
+
+.todoItem__button-delete {
+  flex-shrink: 0;
+  padding: 0 20px;
 }
