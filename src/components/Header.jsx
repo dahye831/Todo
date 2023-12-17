@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TodoFilter from './TodoFilter';
+import { DarkModeContext} from '../context/DarkModeContext';
+import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 
 export default function Header({ filters, onFilter }) {
+  const { dark, handleMode } = useContext(DarkModeContext);
   return (
     <header className="header">
-      <button className="header__button-mode">dark mode</button>
+      <button className={`header__button-mode ${dark&&'header__button-mode-dark'}`} onClick={handleMode}>
+        {dark ? <IoSunnyOutline /> : <IoMoonOutline />}
+      </button>
       <TodoFilter filters={filters} onFilter={onFilter} />
     </header>
   );

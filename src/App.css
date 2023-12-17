@@ -7,9 +7,18 @@ ul {
   list-style: none;
 }
 
+/* color set */
+
 main {
   max-width: 640px;
   margin: 0 auto;
+
+  --lightBg : rgb(248, 248, 240);
+  --lightFont : black;
+  --lightBorder : rgb(108, 108, 108);
+  --darkBg: rgb(51, 51, 51);
+  --darkFont: white;
+  --darkBorder: white
 }
 
 .header {
@@ -18,11 +27,28 @@ main {
   justify-content: space-between;
   padding: 20px 10px;
   box-sizing: border-box;
-  background-color: beige;
+  background-color: var(--lightBg);
 }
 
 .header__button-mode {
-  flex-shrink: 0
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.header__button-mode svg {
+  width: 100%;
+  height: auto;
+}
+
+.header__button-mode-dark {
+  color: #fff
 }
 
 .filterList {
@@ -35,13 +61,14 @@ main {
 }
 
 .filterItem--on {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--lightBorder);
 }
 
 .filterItem__button {
   border: 0;
   background-color: transparent;
   font-size: 18px;
+  color: var(--lightFont)
 }
 
 .todoList {
@@ -55,7 +82,7 @@ main {
   width: 100%;
   height: 70px;
   padding: 20px 10px;
-  background-color: beige;
+  background-color: var(--lightBg);
   box-sizing: border-box;
 }
 
@@ -63,7 +90,7 @@ main {
   flex: 1;
   height: 100%;
   border: 0;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--lightBorder);
   box-sizing: border-box;
 }
 
@@ -91,4 +118,19 @@ main {
 .todoItem__button-delete {
   flex-shrink: 0;
   padding: 0 20px;
+}
+
+/* darkmode */
+.main.darkMode .header,
+.main.darkMode .todoInput {
+  background-color: var(--darkBg);
+}
+
+.main.darkMode .filterItem--on,
+.main.darkMode .todoInput__input {
+  border-bottom-color: var(--darkBorder);
+}
+
+.main.darkMode .filterItem__button {
+  color: var(--darkFont)
 }
