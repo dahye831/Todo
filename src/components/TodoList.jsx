@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import TodoItem from './TodoItem';
-import TodoInput from './TodoInput';
+import React, { useEffect, useState } from "react";
+import TodoItem from "./TodoItem";
+import TodoInput from "./TodoInput";
 
-const TodoList = ({filter}) => {
-  const [todos, setTodos] = useState([]);
-  
+const TodoList = ({ filter }) => {
+  const [todos, setTodos] = useState(getLocalData());
+
   //투두 아이템 추가
   const handleAdd = (todo) => {
     const id = Date.now();
     const value = todo;
-    const status = 'active'
-    setTodos(prev => [...prev, {id, value, status}]);
+    const status = "active";
+    setTodos((prev) => [...prev, { id, value, status }]);
   };
   //투두 아이템 삭제
   const handleDelete = (deleted) => {
@@ -18,31 +18,24 @@ const TodoList = ({filter}) => {
   };
   //투두 아이템 업데이트
   const handleUpdate = (updated) => {
-    setTodos(todos.map(item => {
-      if (item.id === updated) {
-        item.status !== "active"
-          ? (item.status = "active")
-          : (item.status = "completed");
-      }
-      return item
-    }))
-  }
+    setTodos(
+      todos.map((item) => {
+        if (item.id === updated) {
+          item.status !== "active"
+            ? (item.status = "active")
+            : (item.status = "completed");
+        }
+        return item;
+      })
+    );
+  };
   //filter된 데이터
-  const filteredList = getFilterData(filter, todos)
-
-  const saveStorage = (todos) => {
-    todos.map(item => {
-      localStorage.setItem('id', item.id)
-      localStorage.setItem('value', item.value)
-      localStorage.setItem('status', item.status)
-    })
-
-  }
-
-  //페이지 첫 렌더링시 storage에 저장된 데이터를 가져온다.
+  const filteredList = getFilterData(filter, todos);
+  //todo가 추가될때마다 localStorage를 업데이트해준다.
   useEffect(() => {
-    saveStorage(todos);
-  }, [todos])
+    localStorage.setItem("todoList", JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <>
       <ul className="todoList">
@@ -65,9 +58,14 @@ const TodoList = ({filter}) => {
 export default TodoList;
 
 function getFilterData(filter, todos) {
-  if (filter === 'all') {
-    return todos
+  if (filter === "all") {
+    return todos;
   } else {
-    return todos.filter((todo) => todo.status === filter)
+    return todos.filter((todo) => todo.status === filter);
   }
+}
+
+function getLocalData() {
+  const getLocalStorage = localStorage.getItem("todoList");
+  return !!getLocalStorage ? JSON.parse(getLocalStorage) : [];
 }

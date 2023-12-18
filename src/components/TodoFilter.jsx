@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-export default function TodoFilter({ filters, onFilter }) {
-  const [selected, setSelected] = useState(null)
+export default function TodoFilter({ filter, filters, onFilter }) {
+  const [selected, setSelected] = useState(filter);
   return (
     <ul className="filterList">
       {filters.map((value, index) => (
@@ -24,4 +24,3 @@ export default function TodoFilter({ filters, onFilter }) {
     </ul>
   );
 }
-
