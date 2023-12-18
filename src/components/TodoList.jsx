@@ -3,7 +3,10 @@ import TodoItem from "./TodoItem";
 import TodoInput from "./TodoInput";
 
 const TodoList = ({ filter }) => {
-  const [todos, setTodos] = useState(getLocalData());
+  // useState
+  // const [state, setState] = useState(initialValue) initialValue에 콜백함수가 오기도 함
+  // useState(readTodoData()) 함수호출을 초기값으로 넣으면, TodoList가 렌더될때마다 호출됨
+  const [todos, setTodos] = useState(readTodoData);
 
   //투두 아이템 추가
   const handleAdd = (todo) => {
@@ -65,7 +68,7 @@ function getFilterData(filter, todos) {
   }
 }
 
-function getLocalData() {
-  const getLocalStorage = localStorage.getItem("todoList");
-  return !!getLocalStorage ? JSON.parse(getLocalStorage) : [];
+function readTodoData() {
+  const todoList = localStorage.getItem("todoList");
+  return !!todoList ? JSON.parse(todoList) : [];
 }
